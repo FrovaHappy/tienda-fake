@@ -8,30 +8,43 @@ async function fetchdata() {
 }
 
 (async (d) => {
-  const fragment = d.createDocumentFragment()
-  const products = d.querySelector(".products")
+  const products = d.querySelector('.products')
+  let targets = ''
   const data = await fetchdata()
-  data.products.forEach( product => {
+  data.products.forEach((product) => {
     let target = `
-      <div class=" target" id="${product.id}">
+      <div class="target" id="${product.id}">
         <img class="target__img"src="${product.images[0]}">
         <div class="target__line"></div>
         <h1 class="target__title"> ${product.title} </h1>
         <h2 class="target__price">${product.price} $ </h2>
       </div>
     `
-    const targetNodes = new DOMParser().parseFromString(target, "text/html")
-    fragment.append(targetNodes.body)
-  });
-  products.append(fragment)
-  products.childNodes.forEach(element => {
-    element.addEventListener("mouseover", (e) => {
-      const elemt = element.querySelector(".target__title")
-      elemt.classList.add("active")
-    })
-    element.addEventListener("mouseleave", (e) => {
-      const elemt = element.querySelector(".target__title")
-      elemt.classList.remove("active")
-    })
+    targets += target
   })
+  products.insertAdjacentHTML('beforeend', targets)
+
+  products.addEventListener('mouseover', (event) => {
+    let target
+    if (event.target.parentElement.className == 'target') {
+      target = event.target.parentElement
+    }
+    if (event.target.className == 'target') {
+      target = event.target
+    }
+    if (target) {
+      target.querySelector('.target__title').classList.add('active')
+    }
+  })
+  products.addEventListener(
+    'mouseleave',
+    (event) => {
+      event.target?.classList.forEach((c) => {
+        if (c === 'target') {
+          event.target.querySelector('.target__title').classList.remove('active')
+        }
+      })
+    },
+    true
+  )
 })(document)

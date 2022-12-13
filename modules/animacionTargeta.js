@@ -10,7 +10,7 @@ export function animacionTargeta() {
       target = event.target
     }
     if (target) {
-      target.querySelector('.target__title').classList.add('active')
+      target.querySelector('.target__title').classList.add('target__title--active')
     }
   })
   products.addEventListener(
@@ -18,7 +18,7 @@ export function animacionTargeta() {
     (event) => {
       event.target?.classList.forEach((c) => {
         if (c === 'target') {
-          event.target.querySelector('.target__title').classList.remove('active')
+          event.target.querySelector('.target__title').classList.remove('target__title--active')
         }
       })
     },

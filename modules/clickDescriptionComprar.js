@@ -1,14 +1,9 @@
 function agregarItemCarrito(data) {
   const carritoLS = localStorage.getItem('carrito') ?? '[]'
   let carrito = JSON.parse(carritoLS)
-  if (carrito.length == 0) carrito.push(data)
-  let existeEnCarrito = false
-  carrito.forEach((item) => {
-    if (item.id == data.id) {
-      existeEnCarrito = true
-    }
-  })
-  if (!existeEnCarrito) carrito.push(data)
+  console.log(carrito)
+  const encontrarEnCarrito = carrito.find((item) => item.id == data.id) ?? []
+  if (encontrarEnCarrito.length == 0) carrito.push(data)
   carrito.map((item) => {
     if (!(item.id == data.id)) return item
     if (item.stock >= (item.buy ?? 0)) {

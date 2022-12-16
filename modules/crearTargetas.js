@@ -1,22 +1,14 @@
 /**
- * @returns {Promise<import ("./types").RootObject>}
+ * @param {import ("../types").RootObject} data 
  */
-async function fetchdata() {
-  return await fetch('./data.json')
-    .then((res) => res.json())
-    .then((json) => {
-      return json
-    })
-}
-export async function crearTargetas() {
+export async function crearTargetas(data) {
   const d = document
   const products = d.querySelector('.products')
   let targets = ''
-  const data = await fetchdata()
   data.products.forEach((product) => {
     let target = `
       <div class="target" id="${product.id}">
-        <img class="target__img"src="${product.images[0]}">
+        <img class="target__img"src="${product.thumbnail}" alt="${product.title}">
         <div class="target__line"></div>
         <h1 class="target__title"> ${product.title} </h1>
         <h2 class="target__price">${product.price} $ </h2>

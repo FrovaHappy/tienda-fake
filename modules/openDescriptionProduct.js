@@ -1,3 +1,4 @@
+import { clickDescriptionComprar } from './clickDescriptionComprar.js'
 import { closeDescriptionProduct } from './closeDescriptionProduct.js'
 /**
  * @param {import ("../types").Product} data
@@ -31,6 +32,7 @@ function createDescriptionTarget(data) {
   `
   description.innerHTML = content
   closeDescriptionProduct()
+  clickDescriptionComprar(data)
   description.hidden = false
   description.parentElement.hidden = false
 }
@@ -54,7 +56,6 @@ export function openDescriptionProduct(data) {
       const product = data.products.filter((product) => {
         return product.id == target.id
       })
-      console.log(product[0])
       createDescriptionTarget(product[0])
     }
   })
